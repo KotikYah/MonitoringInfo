@@ -1,0 +1,17 @@
+{
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.10",
+    "discord-reply": "^0.1.2",
+    "discord.js": "^12.5.3",
+    "express": "^4.17.1",
+    "http": "0.0.1-security",
+    "https": "^1.0.0",
+    "jsdom": "^17.0.0",
+    "mc-ping": "^0.0.3-0",
+    "minecraft-pinger": "^1.0.5",
+    "minecraft-server-ping": "^0.0.4",
+    "minecraft-server-util": "^3.6.0",
+    "minecraft-status": "^1.1.0",
+    "request": "^2.88.2"
+  }
+}
