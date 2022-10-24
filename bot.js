@@ -7,26 +7,21 @@ const cheerio = require('cheerio')
 const util = require('minecraft-server-util');
 const jsdom = require('jsdom');
 const { response } = require('express');
-var http = require('http');
-var url = require('url');
+const express = require("express");
 const fs = require('fs');
 
 let prefix = 'mi/';
 let servers = [];
 
 client.on('ready', () => {
-    try {
-    http.createServer(function (req, res) {
-        var hostname = req.headers.host;
-        var pathname = url.parse(req.url).pathname;
-        console.log('http://' + hostname + pathname);
-      
-        res.writeHead(200);
-        res.end();
-      }).listen(80);
-    } catch (err) {
-        console.log("Cannot start http server on port 80: " + err);
-    }
+    setTimeout(1000, () => {
+        const app = express();
+        const port = process.env.PORT || 3001;
+
+        app.get("/", (req, res) => res.type('html').send(`Bot alive.`));
+
+        app.listen(port, () => console.log(`Http server started on port ${port}.`));
+    });
     console.log(`I am ${client.user.tag}`);
     client.user.setPresence({
         status: 'online',
