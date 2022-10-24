@@ -23,7 +23,15 @@ client.on('ready', () => {
     });
     updateServers();
     setInterval(updateServers, 5000);
-    setInterval(() => {console.log(`hello world`);}, 120000)
+    setInterval(() => {console.log(`hello world`);}, 120000);
+    for (let a = 0; a < inf['listen_new_servers'].length; a++) {
+        let b = inf['listen_new_servers'][a].split("-");
+        guildId = parseInt(b[0]);
+        channelId = parseInt(b[1]);
+        client.guilds.cache.filter(guild => guild.id == guildId).forEach((guild) => {
+            guild.channels.cache.filter(chx => chx.type === "text" && chx.id == channelId).forEach(channel => channel.send("Bot started up."))
+        });
+    };
 });
 
 client.on("message", async msg => {
