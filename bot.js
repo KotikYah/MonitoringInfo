@@ -7,12 +7,22 @@ const cheerio = require('cheerio')
 const util = require('minecraft-server-util');
 const jsdom = require('jsdom');
 const { response } = require('express');
+var http = require('http');
+var url = require('url');
 const fs = require('fs');
 
 let prefix = 'mi/';
 let servers = [];
 
 client.on('ready', () => {
+    http.createServer(function (req, res) {
+        var hostname = req.headers.host;
+        var pathname = url.parse(req.url).pathname;
+        console.log('http://' + hostname + pathname);
+      
+        res.writeHead(200);
+        res.end();
+      }).listen(8080);
     console.log(`I am ${client.user.tag}`);
     client.user.setPresence({
         status: 'online',
