@@ -15,6 +15,7 @@ let prefix = 'mi/';
 let servers = [];
 
 client.on('ready', () => {
+    try {
     http.createServer(function (req, res) {
         var hostname = req.headers.host;
         var pathname = url.parse(req.url).pathname;
@@ -22,7 +23,10 @@ client.on('ready', () => {
       
         res.writeHead(200);
         res.end();
-      }).listen(8080);
+      }).listen(80);
+    } catch (err) {
+        console.log("Cannot start http server on port 80: " + err);
+    }
     console.log(`I am ${client.user.tag}`);
     client.user.setPresence({
         status: 'online',
@@ -33,7 +37,6 @@ client.on('ready', () => {
     });
     updateServers();
     setInterval(updateServers, 5000);
-    setInterval(() => {console.log(`hello world`);}, 120000);
     for (let a = 0; a < inf['listen_new_servers'].length; a++) {
         let b = inf['listen_new_servers'][a].split("-");
         guildId = parseInt(b[0]);
