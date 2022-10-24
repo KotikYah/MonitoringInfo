@@ -8,24 +8,11 @@ const util = require('minecraft-server-util');
 const jsdom = require('jsdom');
 const { response } = require('express');
 const fs = require('fs');
-var http = require('http');
 
 let prefix = 'mi/';
 let servers = [];
 
 client.on('ready', () => {
-  http.createServer(function (req, res) {
-		res.write("Bot online.\n");
-		res.write("--------------------------------\n");
-		res.write("Login: " + client.user.tag + "!\n");
-		res.write("ID: " + client.user.id + "\n");
-		let date = new Date();
-        let t = "Day > " + date.getDay() + ", hour > " + date.getHours() + ", minute > " + date.getMinutes() + ", seconds > " + date.getSeconds();
-		console.log("Connection. " + t);
-        res.write(`Time: ${t}`);
-		res.write("--------------------------------\n");
-		res.end();
-	}).listen(80);
     console.log(`I am ${client.user.tag}`);
     client.user.setPresence({
         status: 'online',
