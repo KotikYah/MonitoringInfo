@@ -9,6 +9,7 @@ const jsdom = require('jsdom');
 const { response } = require('express');
 const express = require("express");
 const fs = require('fs');
+const { white } = require('colors');
 
 let prefix = 'mi/';
 let servers = [];
@@ -130,9 +131,10 @@ client.on("message", async msg => {
     }
 })
 
-function s(msg, ip, port) {
+async function s(msg, ip, port) {
+    let message = await msg.lineReplyNoMention(new Discord.MessageEmbed().setColor('#0099ff').setTitle("Проверяю..."));
     util.status(ip, { port: parseInt(port) })
-        .then((response) => {
+        .then(async (response) => {
             const embed = new Discord.MessageEmbed()
                 .setColor('#0099ff')
                 .setTitle(`Статус сервера: онлайн`)
@@ -142,15 +144,15 @@ function s(msg, ip, port) {
                 .addField('Мотд', `**${response['description']}**`, false)
                 .addField('Полезные ссылки:', `**[Check-Host](https://check-host.net/check-tcp?host=${ip}:${port})\n[McSrvStat](https://mcsrvstat.us/server/${ip}:${port})**`, true)
                 .setFooter(`Запросил ${msg.author.tag} | ${inf['version']}`);
-            msg.lineReplyNoMention(embed);
+            await message.edit(embed);
         })
-        .catch((error) => {
+        .catch(async (error) => {
             const embed = new Discord.MessageEmbed()
                 .setColor('#0099ff')
                 .setTitle(`Статус сервера: оффлайн`)
                 .addField('Айпи', `**${ip}:${port}**`, false)
                 .setFooter(`Запросил ${msg.author.tag} | ${inf['version']}`);
-            msg.lineReplyNoMention(embed);
+            await message.edit(embed);
         });
 }
 
