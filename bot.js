@@ -13,15 +13,14 @@ const fs = require('fs');
 let prefix = 'mi/';
 let servers = [];
 
+const app = express();
+const port = process.env.PORT || 3001;
+
+app.get("/", (req, res) => res.type('html').send('Alive.'));
+
+app.listen(port, () => console.log(`Http server started on port ${port}.`));
+
 client.on('ready', () => {
-    setTimeout(() => {
-        const app = express();
-        const port = process.env.PORT || 3001;
-
-        app.get("/", (req, res) => res.type('html').send(`Bot alive.`));
-
-        app.listen(port, () => console.log(`Http server started on port ${port}.`));
-    }, 1000);
     console.log(`I am ${client.user.tag}`);
     client.user.setPresence({
         status: 'online',
