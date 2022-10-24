@@ -23,6 +23,7 @@ client.on('ready', () => {
     });
     updateServers();
     setInterval(updateServers, 5000);
+    setInterval(() => {console.log(`hello world`);}, 120000)
 });
 
 client.on("message", async msg => {
@@ -152,6 +153,7 @@ function updateServers() {
         }
         s.forEach(server => {
             if (servers.includes(server)) return;
+            console.log(`new server : ${server}`);
             servers.push(server);
             x = server.split(':');
             util.status(x[0], { port: parseInt(x[1]) })
