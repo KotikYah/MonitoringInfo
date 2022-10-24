@@ -174,7 +174,8 @@ function updateServers() {
                     };
             })
             .catch((error) => {
-                console.log(`new server check error: ${error}`);
+                if (inf["errors"])
+                    console.log(`new server check error: ${error}`);
                 return;
             });
         });
